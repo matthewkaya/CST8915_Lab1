@@ -1,0 +1,7 @@
+version: '3'
+services:
+  clients-service:
+    image: matthewkaya/cst8915:clients-service-v1
+    ports:
+      - "5001:5001"
+

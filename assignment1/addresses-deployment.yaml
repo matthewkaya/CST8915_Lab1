@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: addresses-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: addresses-service
+  template:
+    metadata:
+      labels:
+        app: addresses-service
+    spec:
+      containers:
+      - name: addresses-service
+        image: matthewkaya/cst8915:addresses-service-v1
+        ports:
+        - containerPort: 5002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: addresses-service
+spec:
+  selector:
+    app: addresses-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5002
+  type: LoadBalancer

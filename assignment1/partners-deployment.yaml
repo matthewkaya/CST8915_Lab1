@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: partners-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: partners-service
+  template:
+    metadata:
+      labels:
+        app: partners-service
+    spec:
+      containers:
+      - name: partners-service
+        image: matthewkaya/cst8915:partners-service-v1
+        ports:
+        - containerPort: 5003
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: partners-service
+spec:
+  selector:
+    app: partners-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5003
+  type: LoadBalancer
